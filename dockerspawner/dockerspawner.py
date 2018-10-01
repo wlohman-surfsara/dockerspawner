@@ -338,7 +338,7 @@ class DockerSpawner(Spawner):
     )
 
     _docker_safe_chars = set(string.ascii_letters + string.digits + "-")
-    _docker_escape_char = "_"
+    _docker_escape_char = "-"
 
     hub_ip_connect = Unicode(
         config=True,
@@ -459,7 +459,7 @@ class DockerSpawner(Spawner):
                 safe=self._docker_safe_chars,
                 escape_char=self._docker_escape_char,
             )
-        return self._escaped_name
+        return self._escaped_name.lower()
 
     object_id = Unicode(allow_none=True)
 
@@ -819,3 +819,4 @@ class DockerSpawner(Spawner):
                 v = v["bind"]
             binds[_fmt(k)] = {"bind": _fmt(v), "mode": m}
         return binds
+
